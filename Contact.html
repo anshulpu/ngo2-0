@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Hope for All NGO</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* Advanced Color Palette */
+        :root {
+            /* Light Mode Colors */
+            --primary-light: #007bff;
+            --secondary-light: #6c757d;
+            --accent-light: #28a745;
+            --background-light: #f4f6f9;
+            --text-light: #333;
+            --card-light: #ffffff;
+            --border-light: #dee2e6;
+
+            /* Dark Mode Colors */
+            --primary-dark: #4dabf7;
+            --secondary-dark: #adb5bd;
+            --accent-dark: #50c878;
+            --background-dark: #121212;
+            --surface-dark: #1e1e1e;
+            --text-dark: #e0e0e0;
+            --card-dark: #2c2c2c;
+            --border-dark: #444;
+        }
+
+        /* Global Styles */
+        * {
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: var(--background-dark);
+            color: var(--text-dark);
+        }
+
+        /* Enhanced Input Styles */
+        .form-control, .form-select {
+            border-radius: 12px;
+            padding: 12px 15px;
+            border: 2px solid var(--border-light);
+            background-color: transparent;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+        }
+
+        /* Contact Form Styles */
+        .contact-form {
+            background: linear-gradient(135deg, 
+                rgba(255,255,255,0.9) 0%, 
+                rgba(249,250,251,0.9) 100%);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 2px solid var(--border-light);
+            transform: perspective(1000px);
+            transition: all 0.4s ease;
+        }
+
+        .contact-form:hover {
+            transform: scale(1.02) rotateY(5deg);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        /* Contact Info Cards */
+        .contact-info-card {
+            background: linear-gradient(145deg, 
+                var(--primary-light) 0%, 
+                #5e3fc0 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.4s ease;
+            transform: perspective(1000px);
+        }
+
+        .contact-info-card:hover {
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Contact Icons */
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: white;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .contact-info-card:hover .contact-icon {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* Map Styles */
+        #contactMap {
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+        }
+
+        #contactMap:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            border-radius: 12px;
+            padding: 12px 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.4s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Dark Mode Adjustments */
+        .dark-mode .contact-form,
+        .dark-mode .contact-info-card {
+            background: linear-gradient(135deg, 
+                rgba(44,44,44,0.9) 0%, 
+                rgba(30,30,30,0.9) 100%);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .contact-form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dark-mode-toggle" id="darkModeToggle">
+        <i class="bi bi-moon-stars" id="darkModeIcon"></i>
+    </div>
+    <!-- Navigation (Keep the previous navigation code) -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Hope for All</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Programs
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="education.html">Education</a></li>
+                            <li><a class="dropdown-item" href="health.html">Healthcare</a></li>
+                            <li><a class="dropdown-item" href="commmunity.html">Community Development</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="About.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Donate.html">Donate</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+     
+
+
+    <!-- Contact Hero Section -->
+    <section class="bg-primary text-white text-center py-5">
+        <div class="container">
+            <h1 class="display-4 mb-3">Get In Touch</h1>
+            <p class="lead">We'd love to hear from you. Send us a message or visit our office.</p>
+        </div>
+    </section>
+<!-- FAQ Section with an Image -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4">Frequently Asked Questions</h2>
+        
+        <!-- Responsive Image -->
+        <div class="text-center mb-4">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeJWR3GKbMgw463LohOaQ3cvNvodBRf9g-rQ&s" class="img-fluid rounded-4" alt="Hope for All NGO">
+        </div>
+
+        <div class="accordion" id="faqAccordion">
+            <!-- Question 1 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faqHeadingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="true" aria-controls="faqCollapseOne">
+                        What services does Hope for All NGO provide?
+                    </button>
+                </h2>
+                <div id="faqCollapseOne" class="accordion-collapse collapse show" aria-labelledby="faqHeadingOne" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Hope for All NGO provides education, healthcare, and community development programs to support underprivileged communities.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faqHeadingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo" aria-expanded="false" aria-controls="faqCollapseTwo">
+                        How can I donate to Hope for All?
+                    </button>
+                </h2>
+                <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        You can donate through our website by visiting the "Donate" page and selecting your preferred payment method.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faqHeadingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree" aria-expanded="false" aria-controls="faqCollapseThree">
+                        Can I volunteer with your organization?
+                    </button>
+                </h2>
+                <div id="faqCollapseThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Yes! We welcome volunteers. Please fill out the volunteer application form on our website or contact us for more details.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faqHeadingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFour" aria-expanded="false" aria-controls="faqCollapseFour">
+                        How can I contact Hope for All NGO?
+                    </button>
+                </h2>
+                <div id="faqCollapseFour" class="accordion-collapse collapse" aria-labelledby="faqHeadingFour" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        You can contact us via email at contact@hopeforall.org or call us at +1 (555) 123-4567.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Contact Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Contact Form -->
+                <div class="col-lg-7 mb-4">
+                    <div class="contact-form">
+                        <h2 class="mb-4 text-center">Send Us a Message</h2>
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                        <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                        <input type="text" class="form-control" id="lastName" placeholder="Enter your last name" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-phone"></i></span>
+                                    <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Your Message</label>
+                                <textarea class="form-control" id="message" rows="5" placeholder="Write your message here" required></textarea>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-submit">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+
+                <!-- Contact Information -->
+                <div class="col-lg-5">
+                    <div class="contact-info-card">
+                        <div class="text-center">
+                            <i class="bi bi-geo-alt contact-icon"></i>
+                            <h4>Our Location</h4>
+                            <p>123 Hope Street, Global City, World 54321</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card">
+                        <div class="text-center">
+                            <i class="bi bi-envelope contact-icon"></i>
+                            <h4>Email Us</h4>
+                            <p>contact@hopeforall.org</p>
+                            <p>support@hopeforall.org</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card">
+                        <div class="text-center">
+                            <i class="bi bi-phone contact-icon"></i>
+                            <h4>Call Us</h4>
+                            <p>+1 (555) 123-4567</p>
+                            <p>+1 (555) 987-6543</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Google Maps Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3410.748239077255!2d75.7048678!3d31.255392099999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a5f5e9c489cf3%3A0x4049a5409d53c300!2sLovely%20Professional%20University!5e0!3m2!1sen!2sin!4v1740256948983!5m2!1sen!2sin" 
+                        width="100%" 
+                        height="450" 
+                        style="border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dark Mode Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const darkModeIcon = document.getElementById('darkModeIcon');
+            const body = document.body;
+
+            function applyDarkMode(mode) {
+                if (mode === 'enabled') {
+                    body.classList.add('dark-mode');
+                    darkModeIcon.classList.remove('bi-moon-stars');
+                    darkModeIcon.classList.add('bi-sun');
+                } else {
+                    body.classList.remove('dark-mode');
+                    darkModeIcon.classList.remove('bi-sun');
+                    darkModeIcon.classList.add('bi-moon-stars');
+                }
+            }
+
+            const savedDarkMode = localStorage.getItem('darkMode');
+            applyDarkMode(savedDarkMode);
+
+            darkModeToggle.addEventListener('click', () => {
+                const currentMode = body.classList.contains('dark-mode') ? 'disabled' : 'enabled';
+                localStorage.setItem('darkMode', currentMode);
+                applyDarkMode(currentMode);
+            });
+
+            // Form Validation and Submission
+            const contactForm = document.getElementById('contactForm');
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Add form submission logic here
+                alert('Thank you for your message! We will get back to you soon.');
+                contactForm.reset();
+            });
+        });
+    </script>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

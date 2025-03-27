@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate - Hope for All NGO</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* Advanced Color Palette */
+        :root {
+            /* Light Mode Colors */
+            --primary-light: #007bff;
+            --secondary-light: #6c757d;
+            --accent-light: #28a745;
+            --background-light: #f4f6f9;
+            --text-light: #333;
+            --card-light: #ffffff;
+            --border-light: #dee2e6;
+
+            /* Dark Mode Colors */
+            --primary-dark: #4dabf7;
+            --secondary-dark: #adb5bd;
+            --accent-dark: #50c878;
+            --background-dark: #121212;
+            --surface-dark: #1e1e1e;
+            --text-dark: #e0e0e0;
+            --card-dark: #2c2c2c;
+            --border-dark: #444;
+        }
+
+        /* Global Styles */
+        * {
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: var(--background-dark);
+            color: var(--text-dark);
+        }
+
+        /* Enhanced Input Styles */
+        .form-control, .form-select {
+            border-radius: 10px;
+            padding: 12px 15px;
+            border: 2px solid var(--border-light);
+            background-color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .form-control,
+        .dark-mode .form-select {
+            border-color: var(--border-dark);
+            color: var(--text-dark);
+            background-color: transparent;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+        }
+
+        .dark-mode .form-control:focus,
+        .dark-mode .form-select:focus {
+            border-color: var(--primary-dark);
+            box-shadow: 0 0 0 0.2rem rgba(77,171,247,0.25);
+        }
+
+        /* Donation Form Styles */
+        .donate-form {
+            background: linear-gradient(135deg, 
+                rgba(255,255,255,0.9) 0%, 
+                rgba(249,250,251,0.9) 100%);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 2px solid var(--border-light);
+        }
+
+        .dark-mode .donate-form {
+            background: linear-gradient(135deg, 
+                rgba(44,44,44,0.9) 0%, 
+                rgba(30,30,30,0.9) 100%);
+            border-color: var(--border-dark);
+        }
+
+        /* Donation Amount Buttons */
+        .donation-amount-btn {
+            border-radius: 10px;
+            margin: 5px;
+            border: 2px solid var(--primary-light);
+            transition: all 0.3s ease;
+        }
+
+        .donation-amount-btn.active {
+            background-color: var(--primary-light);
+            color: white;
+        }
+
+        .dark-mode .donation-amount-btn {
+            border-color: var(--primary-dark);
+            color: var(--primary-dark);
+        }
+
+        .dark-mode .donation-amount-btn.active {
+            background-color: var(--primary-dark);
+            color: var(--background-dark);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, 
+                var(--primary-light) 0%, 
+                #5e3fc0 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-mode .hero-section {
+            background: linear-gradient(135deg, 
+                var(--primary-dark) 0%, 
+                #7e57c2 100%);
+        }
+
+        /* Impact Counter */
+        .impact-counter {
+            background: linear-gradient(145deg, 
+                rgba(0,123,255,0.1) 0%, 
+                rgba(0,123,255,0.05) 100%);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 2px solid rgba(0,123,255,0.1);
+            transition: all 0.4s ease;
+        }
+
+        .dark-mode .impact-counter {
+            background: linear-gradient(145deg, 
+                rgba(77,171,247,0.1) 0%, 
+                rgba(77,171,247,0.05) 100%);
+            border-color: rgba(77,171,247,0.1);
+        }
+
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 2px solid rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .dark-mode-toggle {
+            background: rgba(0,0,0,0.2);
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .donate-form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle" id="darkModeToggle">
+        <i class="bi bi-moon-stars" id="darkModeIcon"></i>
+    </div>
+
+    <!-- Navigation (Same as previous example) -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Hope for All</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Programs
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="education.html">Education</a></li>
+                            <li><a class="dropdown-item" href="health.html">Healthcare</a></li>
+                            <li><a class="dropdown-item" href="commmunity.html">Community Development</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="About.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Donate.html">Donate</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center py-5">
+        <div class="container">
+            <h1 class="display-4 mb-3 text-white">Your Donation Creates Hope</h1>
+            <p class="lead text-white-50">Every contribution helps us transform lives and build stronger communities</p>
+        </div>
+    </section>
+
+    <!-- Donation Form Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="donate-form">
+                        <h2 class="text-center mb-4">Make a Meaningful Donation</h2>
+                        
+                        <!-- Donation Amount Buttons -->
+                        <div class="donation-amounts text-center mb-4">
+                            <button class="btn btn-outline-primary donation-amount-btn" data-amount="50">$50</button>
+                            <button class="btn btn-outline-primary donation-amount-btn" data-amount="100">$100</button>
+                            <button class="btn btn-outline-primary donation-amount-btn" data-amount="250">$250</button>
+                            <button class="btn btn-outline-primary donation-amount-btn" data-amount="500">$500</button>
+                            <button class="btn btn-outline-primary donation-amount-btn" data-amount="other">Other</button>
+                        </div>
+
+                        <form id="donationForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" placeholder="Enter your last name" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                            </div>
+
+                            <div class="mb-3" id="customAmountContainer" style="display:none;">
+                                <label for="customAmount" class="form-label">Custom Donation Amount</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="customAmount" placeholder="Enter custom amount" min="1">
+                                </div>
+                            </div>
+
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="recurringDonation">
+                                <label class="form-check-label" for="recurringDonation">
+                                    Make this a monthly donation
+                                </label>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-lg px-5">Donate Now</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Counters -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="impact-counter">
+                        <h2 class="display-4 text-primary">$500K+</h2>
+                        <p>Total Donations</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="impact-counter">
+                        <h2 class="display-4 text-primary">1000+</h2>
+                        <p>Lives Impacted</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="impact-counter">
+                        <h2 class="display-4 text-primary">50+</h2>
+                        <p>Projects Completed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dark Mode and Form Interaction Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Dark Mode Logic (Same as previous example)
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const darkModeIcon = document.getElementById('darkModeIcon');
+            const body = document.body;
+
+            function applyDarkMode(mode) {
+                if (mode === 'enabled') {
+                    body.classList.add('dark-mode');
+                    darkModeIcon.classList.remove('bi-moon-stars');
+                    darkModeIcon.classList.add('bi-sun');
+                } else {
+                    body.classList.remove('dark-mode');
+                    darkModeIcon.classList.remove('bi-sun');
+                    darkModeIcon.classList.add('bi-moon-stars');
+                }
+            }
+
+            const savedDarkMode = localStorage.getItem('darkMode');
+            applyDarkMode(savedDarkMode);
+
+            darkModeToggle.addEventListener('click', () => {
+                const currentMode = body.classList.contains('dark-mode') ? 'disabled' : 'enabled';
+                localStorage.setItem('darkMode', currentMode);
+                applyDarkMode(currentMode);
+            });
+
+            // Donation Amount Button Interaction
+            const donationAmountBtns = document.querySelectorAll('.donation-amount-btn');
+            const customAmountContainer = document.getElementById('customAmountContainer');
+            const customAmountInput = document.getElementById('customAmount');
+
+            donationAmountBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    donationAmountBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+
+                    // Show/hide custom amount input
+                    if (btn.dataset.amount === 'other') {
+                        customAmountContainer.style.display = 'block';
+                        customAmountInput.focus();
+                    } else {
+                        customAmountContainer.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
